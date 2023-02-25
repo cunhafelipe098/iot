@@ -1,18 +1,26 @@
 import { Router } from "express"
-import { CreateDeviceService } from "../services/CreateDeviceService"
-import { DevicesRepository } from "../repositories/DevicesRepository"
+import { deviceControler } from "../main/DeviceMain";
 
 const deviceRoutes = Router();
-const devicesRepository = new DevicesRepository()
 
 deviceRoutes.post("/", (request, response) => {
-  const { device_id, name, nickname } = request.body;
+  return deviceControler.create(request, response);
+});
 
-  const createDeviceService = new CreateDeviceService(devicesRepository);
-  
-  createDeviceService.execute({ device_id, name, nickname });
+deviceRoutes.get("/", (request, response) => {
+  return deviceControler.list(request, response);
+});
 
-  return response.status(201).send();
+deviceRoutes.get("/:id", (request, response) => {
+  return deviceControler.finOne(request, response);
+});
+
+deviceRoutes.put("/:id", (request, response) => {
+  return deviceControler.update(request, response);
+});
+
+deviceRoutes.delete("/:id", (request, response) => {
+  return deviceControler.delete(request, response);
 });
 
 export { deviceRoutes };

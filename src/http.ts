@@ -2,7 +2,7 @@ import express from "express";
 import { createServer } from "http";
 import { Server, Socket } from 'socket.io';
 import mongoose from "mongoose";
-import  { deviceRoutes } from "./routes/device.routes"
+import  { deviceRoutes } from "./routes/device.routes";
 
 /**********Connection Mongo******************/
 mongoose.connect("mongodb://localhost:27017/protoiot").catch((error)=>{
@@ -37,6 +37,7 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use(express.json());
 app.use("/device", deviceRoutes);
 
-export {server, io}
+export {server, io};
