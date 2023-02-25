@@ -2,12 +2,13 @@ import express from "express";
 import { createServer } from "http";
 import { Server, Socket } from 'socket.io';
 import mongoose from "mongoose";
+import  { deviceRoutes } from "./routes/device.routes"
 
-const app = express();
+/**********Connection Mongo******************/
+mongoose.connect("mongodb://locallhost/protoiot");
 
-const server = createServer(app);
 
-mongoose.connect("mongo://locallhost/protoiot");
+/**********Websocket***************/
 
 const io = new Server(8080, {
   cors: {
@@ -22,10 +23,17 @@ io.on('connection', (socket: Socket) => {
   console.log('Client connected', socket.id);
 });
 
+/**********server HTTP*************/
+const app = express();
+
+const server = createServer(app);
+
 app.get("/", (req, res) => {
   return res.json({
     menssage: "iot project"
   });
 });
+
+app.use("/device", deviceRoutes);
 
 export {server, io}
