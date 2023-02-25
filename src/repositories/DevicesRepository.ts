@@ -29,10 +29,28 @@ class DevicesRepository {
 
   async findById (id) {
     const device = await Device.findOne({
-      id,
+      _id: id
     }).exec();
+    return device;
+  }
 
-    return id;
+  async deleteById (id) {
+    const device = await Device.deleteOne({
+      _id: id
+    }).exec();
+    return device;
+  }
+
+  async findByDevice_id (device_id) {
+    const device = await Device.findOne({
+      device_id
+    }).exec();
+    return device;
+  }
+
+  async listAll () {
+    const device = await Device.find({}, "device_id name nickname").exec();
+    return device;
   }
 }
 
