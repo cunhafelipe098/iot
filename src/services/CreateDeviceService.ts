@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { injectable } from "tsyringe";
 import { DevicesRepository } from "../repositories/DevicesRepository";
 
-interface createUserDTO {
+interface IcreateUserDTO {
   device_id: string,
   name: string,
   nickname: string
@@ -10,7 +10,7 @@ interface createUserDTO {
 
 @injectable()
 class CreateDeviceService {
-  async execute({ device_id, name, nickname}: createUserDTO) {
+  async execute({ device_id, name, nickname}: IcreateUserDTO) {
     const repository = new DevicesRepository();
     const deviceAlreadyExists = await repository.findById(device_id);
 
