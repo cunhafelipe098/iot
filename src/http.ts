@@ -5,7 +5,10 @@ import mongoose from "mongoose";
 import  { deviceRoutes } from "./routes/device.routes"
 
 /**********Connection Mongo******************/
-mongoose.connect("mongodb://locallhost/protoiot");
+mongoose.connect("mongodb://localhost:27017/protoiot").catch((error)=>{
+  console.log("mondb not connected");
+  console.log(error);
+});;
 
 
 /**********Websocket***************/
