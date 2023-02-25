@@ -4,7 +4,6 @@ import { Device } from "../schemas/Device";
 class DevicesRepository {
 
   async create ({ device_id, name, nickname }) {
-
     const device = await Device.create({
       device_id,
       name,
@@ -26,6 +25,14 @@ class DevicesRepository {
       }
     );
     return device;
+  }
+
+  async findById (id) {
+    const device = await Device.findOne({
+      id,
+    }).exec();
+
+    return id;
   }
 }
 

@@ -1,4 +1,3 @@
-import { Device } from "../schemas/Device";
 import "reflect-metadata";
 import { injectable } from "tsyringe";
 import { DevicesRepository } from "../repositories/DevicesRepository";
@@ -13,11 +12,7 @@ interface createUserDTO {
 class CreateDeviceService {
   async execute({ device_id, name, nickname}: createUserDTO) {
     const repository = new DevicesRepository();
-    
-    
-    const deviceAlreadyExists = await Device.findOne({
-      device_id,
-    }).exec();
+    const deviceAlreadyExists = await repository.findById(device_id);
 
     if (deviceAlreadyExists) {
       const device = await repository.update(deviceAlreadyExists._id, {name, nickname}); 
