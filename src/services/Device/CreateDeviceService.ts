@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { injectable } from "tsyringe";
-import { DevicesRepository } from "../repositories/DevicesRepository";
+import { DevicesRepository } from "../../repositories/DevicesRepository";
 
 interface IcreateUserDTO {
   device_id: string,
@@ -14,8 +14,8 @@ class CreateDeviceService {
   constructor (private devicesRepository: DevicesRepository) {}
 
   async execute({ device_id, name, nickname }: IcreateUserDTO) {
-    const deviceAlreadyExists = await this.devicesRepository.findById(device_id);
-
+    const deviceAlreadyExists = await this.devicesRepository.findByDevice_id(device_id);
+    
     if (deviceAlreadyExists) {
       const device = await this.devicesRepository.update(deviceAlreadyExists._id, {name, nickname}); 
       return device;
