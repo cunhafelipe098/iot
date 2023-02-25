@@ -20,29 +20,14 @@ class CreateDeviceService {
     }).exec();
 
     if (deviceAlreadyExists) {
-
-      const device = await Device.findOneAndUpdate(
-        {
-          _id: deviceAlreadyExists._id,
-        },
-        {
-          $set: {name, nickname},
-        },
-        {
-          new: true,
-        }
-      );
+      const device = await repository.update(deviceAlreadyExists._id, {name, nickname}); 
       return device;
     } else {
-
-      
-      
       const device = await repository.create({
         device_id,
         name,
         nickname
       });
-      
       return device;
     }
   }
