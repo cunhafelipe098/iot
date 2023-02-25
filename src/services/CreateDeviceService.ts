@@ -10,15 +10,17 @@ interface IcreateUserDTO {
 
 @injectable()
 class CreateDeviceService {
-  async execute({ device_id, name, nickname}: IcreateUserDTO) {
-    const repository = new DevicesRepository();
-    const deviceAlreadyExists = await repository.findById(device_id);
+
+  constructor (private devicesRepository: DevicesRepository) {}
+
+  async execute({ device_id, name, nickname }: IcreateUserDTO) {
+    const deviceAlreadyExists = await this.devicesRepository.findById(device_id);
 
     if (deviceAlreadyExists) {
-      const device = await repository.update(deviceAlreadyExists._id, {name, nickname}); 
+      const device = await this.devicesRepository.update(deviceAlreadyExists._id, {name, nickname}); 
       return device;
     } else {
-      const device = await repository.create({
+      const device = await this.devicesRepository.create({
         device_id,
         name,
         nickname
