@@ -13,6 +13,7 @@ class DevicesRepository {
   }
 
   async update(id: string, data) {
+    
     const device = await Device.findOneAndUpdate(
       {
         _id: id,
@@ -30,7 +31,8 @@ class DevicesRepository {
   async findById (id) {
     const device = await Device.findOne({
       _id: id
-    }).exec();
+    }).lean();
+    
     return device;
   }
 
