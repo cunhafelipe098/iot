@@ -9,9 +9,9 @@ type Device = Document & {
     type: string,
     value: string,
     measure: string,
-    dateTime: Date,
+    dateTime: string,
   }],
-  createdAt: Date
+  createdAt: string
 };
 
 const DeviceSchema = new Schema ({
@@ -23,10 +23,11 @@ const DeviceSchema = new Schema ({
     type: String,
     value: String,
     measure: String,
-    dateTime: { type: Date, default: Date.now },
+    dateTime: String,
   }],
-  createdAt: { type: Date, default: Date.now }
-});
+  createdAt: String
+}, 
+{ typeKey: '$type' });
 
 const Device = mongoose.model<Device>("Devices", DeviceSchema);
 
