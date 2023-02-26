@@ -1,6 +1,6 @@
 import { DevicesRepository } from "../../repositories/DevicesRepository";
 
-interface IupdateUserDTO {
+interface IupdateDeviceDTO {
   name: string,
   nickname: string
 }
@@ -9,7 +9,7 @@ class UpdateDeviceService {
 
   constructor (private devicesRepository: DevicesRepository) {}
 
-  async execute(id: string, { name, nickname }: IupdateUserDTO) {
+  async execute(id: string, { name, nickname }: IupdateDeviceDTO) {
     const deviceExists = await this.devicesRepository.findById(id);
     
     if (deviceExists) {
