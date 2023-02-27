@@ -29,9 +29,9 @@ class DeviceControler {
       }
     }
 
-    this.createDeviceService.execute({ device_id, name, nickname });
+    const device = await this.createDeviceService.execute({ device_id, name, nickname });
   
-    return response.status(201).send();
+    return response.status(201).send(device);
   }
 
   async update (request: Request, response: Response) {
