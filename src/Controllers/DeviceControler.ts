@@ -20,6 +20,15 @@ class DeviceControler {
     
     const { device_id, name, nickname } = request.body;
 
+    const requiredFields = ['device_id', 'name', 'nickname']
+
+    for (const field of requiredFields) {
+      if (!request.body[field]) {
+        response.status(400).send({ message: "Content can not be empty!" });
+        return;
+      }
+    }
+
     this.createDeviceService.execute({ device_id, name, nickname });
   
     return response.status(201).send();
