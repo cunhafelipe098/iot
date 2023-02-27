@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { Server, Socket } from 'socket.io';
 import mongoose from "mongoose";
 import  { deviceRoutes } from "./routes/device.routes";
+import cors from "cors";
 
 /**********Connection Mongo********/
 mongoose.connect("mongodb://localhost:27017/protoiot").catch((error)=>{
@@ -36,8 +37,13 @@ app.get("/", (req, res) => {
     menssage: "iot project"
   });
 });
-
+const corsOptions ={
+  origin:'http://localhost:3000', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
 app.use(express.json());
+app.use(cors(corsOptions));
 app.use("/device", deviceRoutes);
 
 export {server, io};
